@@ -20,7 +20,7 @@
     </filter>
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/home/list/**</url-pattern>
     </filter-mapping>
 
     <servlet>

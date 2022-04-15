@@ -16,7 +16,7 @@
     </b:bean>
 
     <http>
-        <intercept-url pattern= "/home/**" access="hasRole('ADMIN')" />
+        <intercept-url pattern= "/home/list/**" access="hasRole('ADMIN')" />
         <intercept-url pattern="/ticket/**" access="hasAnyRole('USER','ADMIN')" />
         
         <form-login login-page="/cslogin" login-processing-url="/cslogin"
@@ -36,4 +36,3 @@
         </authentication-provider>
     </authentication-manager>
 </b:beans>
-
