@@ -1,1 +1,13 @@
+hkmu\comps380f\model\CourseUser.class
+hkmu\comps380f\dao\Lecture_Notes_AttachmentRepository.class
+hkmu\comps380f\model\Lectures.class
+hkmu\comps380f\dao\LecturesRepository.class
+hkmu\comps380f\service\CourseUserService.class
+hkmu\comps380f\controller\HomeController.class
+hkmu\comps380f\dao\UserRoleRepository.class
+hkmu\comps380f\model\Tutorial_Notes_Attachment.class
+hkmu\comps380f\model\Lecture_Comments.class
+hkmu\comps380f\model\Lecture_Notes_Attachment.class
 hkmu\comps380f\controller\IndexController.class
+hkmu\comps380f\model\UserRole.class
+hkmu\comps380f\dao\CourseUserRepository.class
