@@ -18,6 +18,8 @@ public class Lecture_Comments implements Serializable {
     @Column(name = "name")
     private String userName;
     private String body;
+    @Column(name = "lectures_id", insertable = false, updatable = false)
+    private long lecturesId;
     @ManyToOne
     @JoinColumn(name = "lectures_id")
     private Lectures lectures;
@@ -53,5 +55,13 @@ public class Lecture_Comments implements Serializable {
 
     public void setLectures(Lectures lectures) {
         this.lectures = lectures;
+    }
+
+    public long getLecturesId() {
+        return lecturesId;
+    }
+
+    public void setLecturesId(long lecturesId) {
+        this.lecturesId = lecturesId;
     }
 }

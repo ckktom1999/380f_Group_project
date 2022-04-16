@@ -85,6 +85,7 @@ public class LecturesService {
         Lecture_Comments comment = new Lecture_Comments();
         comment.setUserName(name);
         comment.setBody(body);
+        comment.setLectures(lectures);
         for (MultipartFile filePart : lecture_attachments) {
             Lecture_Notes_Attachment attachment = new Lecture_Notes_Attachment();
             attachment.setName(filePart.getOriginalFilename());
@@ -97,7 +98,21 @@ public class LecturesService {
                 lectures.getLecture_notes_attachments().add(attachment);
             }
         }
+
+        for (MultipartFile filePart : tutorial_attachments) {
+            Tutorial_Notes_Attachment attachment = new Tutorial_Notes_Attachment();
+            attachment.setName(filePart.getOriginalFilename());
+            attachment.setMimeContentType(filePart.getContentType());
+            attachment.setContents(filePart.getBytes());
+            attachment.setLectures(lectures);
+            if (attachment.getName() != null && attachment.getName().length() > 0
+                    && attachment.getContents() != null
+                    && attachment.getContents().length > 0) {
+                lectures.getTutorial_notes_attachments().add(attachment);
+            }
+        }
         Lectures savedLectures = lecturesRepo.save(lectures);
+        commentRepo.save(comment);
         return savedLectures.getId();
     }
 
