@@ -1,23 +1,23 @@
 package hkmu.comps380f.controller;
 
-import hkmu.comps380f.model.Lecture_Comments;
+import hkmu.comps380f.exception.LecturesNotFound;
 import hkmu.comps380f.model.Lectures;
-import hkmu.comps380f.service.CommentsService;
 import hkmu.comps380f.service.Lecture_Notes_AttachmentService;
 import hkmu.comps380f.service.LecturesService;
 import hkmu.comps380f.service.Tutorial_Notes_AttachmentService;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/material")
@@ -31,21 +31,6 @@ public class MaterialController {
 
     @Autowired
     private Tutorial_Notes_AttachmentService tutorial_notes_attachmentService;
-
-    @Autowired
-    private CommentsService commentsService;
-
-    @GetMapping("/view/{lectureid}")
-    public String view(@PathVariable("lectureid") long lectureid, ModelMap model) {
-        Lectures lecture = lecturesService.getLectures(lectureid);
-        if (lecture == null) {
-            return "redirect:/home/list";
-        }
-        Lecture_Comments comment = commentsService.getcomment(lectureid);
-        model.addAttribute("lecture", lecture);
-        model.addAttribute("comment", comment);
-        return "view_material";
-    }
 
     @GetMapping("/create")
     public ModelAndView create() {
@@ -97,6 +82,32 @@ public class MaterialController {
         long lectureId = lecturesService.createLecture(form.getTitle(),
                 principal.getName(), form.getComment(), form.getLecture_notes_attachments(), form.getTutorial_notes_attachments());
         return "redirect:/material/view/" + lectureId;
+    }
+
+    @GetMapping("/view/{lectureid}")
+    public ModelAndView view(@PathVariable("lectureid") long lectureid) {
+        Lectures lecture = lecturesService.getLectures(lectureid);
+        if (lecture == null) {
+            return new ModelAndView(new RedirectView("/home/list", true));
+        }
+        ModelAndView modelAndView = new ModelAndView("view_material");
+        modelAndView.addObject("lecture", lecture);
+        Form commentForm = new Form();
+        modelAndView.addObject("commentForm", commentForm);
+        return modelAndView;
+    }
+
+    @PostMapping("/view/{lectureid}")
+    public String addcomment(@PathVariable("lectureid") long lectureid, Form form,
+            Principal principal, HttpServletRequest request)
+            throws IOException, LecturesNotFound {
+        Lectures lecture = lecturesService.getLectures(lectureid);
+        if (lecture == null) {
+            return "redirect:/home/list";
+        }
+        lecturesService.add_comment(lecture, principal.getName(),
+                form.getComment());
+        return "redirect:/material/view/" + lectureid;
     }
 
 }

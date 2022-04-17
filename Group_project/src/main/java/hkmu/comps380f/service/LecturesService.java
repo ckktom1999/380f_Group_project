@@ -116,4 +116,13 @@ public class LecturesService {
         return savedLectures.getId();
     }
 
+    @Transactional
+    public void add_comment(Lectures lectures, String name, String body) {
+        Lecture_Comments comment = new Lecture_Comments();
+        comment.setUserName(name);
+        comment.setBody(body);
+        comment.setLectures(lectures);
+        commentRepo.save(comment);
+    }
+
 }
