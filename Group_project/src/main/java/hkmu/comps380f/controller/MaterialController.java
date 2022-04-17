@@ -1,10 +1,13 @@
 package hkmu.comps380f.controller;
 
 import hkmu.comps380f.exception.LecturesNotFound;
+import hkmu.comps380f.model.Lecture_Notes_Attachment;
 import hkmu.comps380f.model.Lectures;
+import hkmu.comps380f.model.Tutorial_Notes_Attachment;
 import hkmu.comps380f.service.Lecture_Notes_AttachmentService;
 import hkmu.comps380f.service.LecturesService;
 import hkmu.comps380f.service.Tutorial_Notes_AttachmentService;
+import hkmu.comps380f.view.DownloadingView;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -110,4 +114,25 @@ public class MaterialController {
         return "redirect:/material/view/" + lectureid;
     }
 
+    @GetMapping("/{lectureid}/tutorial_notes_attachments/{attachment:.+}")
+    public View download_tutorial_note(@PathVariable("lectureid") long lectureid,
+            @PathVariable("attachment") String name) {
+        Tutorial_Notes_Attachment attachment = tutorial_notes_attachmentService.getAttachment(lectureid, name);
+        if (attachment != null) {
+            return new DownloadingView(attachment.getName(),
+                    attachment.getMimeContentType(), attachment.getContents());
+        }
+        return new RedirectView("/material/list", true);
+    }
+
+    @GetMapping("/{lectureid}/lecture_notes_attachments/{attachment:.+}")
+    public View download(@PathVariable("lectureid") long lectureid,
+            @PathVariable("attachment") String name) {
+        Lecture_Notes_Attachment attachment = lecture_notes_attachmentService.getAttachment(lectureid, name);
+        if (attachment != null) {
+            return new DownloadingView(attachment.getName(),
+                    attachment.getMimeContentType(), attachment.getContents());
+        }
+        return new RedirectView("/material/list", true);
+    }
 }
