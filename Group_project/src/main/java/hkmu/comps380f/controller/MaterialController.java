@@ -122,7 +122,7 @@ public class MaterialController {
             return new DownloadingView(attachment.getName(),
                     attachment.getMimeContentType(), attachment.getContents());
         }
-        return new RedirectView("/material/list", true);
+        return new RedirectView("/home/list", true);
     }
 
     @GetMapping("/{lectureid}/lecture_notes_attachments/{attachment:.+}")
@@ -133,6 +133,13 @@ public class MaterialController {
             return new DownloadingView(attachment.getName(),
                     attachment.getMimeContentType(), attachment.getContents());
         }
-        return new RedirectView("/material/list", true);
+        return new RedirectView("/home/list", true);
+    }
+
+    @GetMapping("/delete/{lectureid}")
+    public String deleteLecture(@PathVariable("lectureid") long lectureid)
+            throws LecturesNotFound {
+        lecturesService.delete(lectureid);
+        return "redirect:/home/list";
     }
 }

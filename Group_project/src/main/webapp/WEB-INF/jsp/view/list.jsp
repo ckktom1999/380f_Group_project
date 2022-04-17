@@ -17,6 +17,12 @@
                 <c:forEach items="${lecturesDatabase}" var="lectures">
                     <a href="<c:url value="/material/view/${lectures.id}" />">
                         <c:out value="${lectures.title}" /></a>
+                    <security:authorize access="hasRole('ADMIN')">
+                        [<a href="<c:url value="/material/edit/${lectures.id}" />">Edit</a>]
+                    </security:authorize>
+                    <security:authorize access="hasRole('ADMIN')">
+                        [<a href="<c:url value="/material/delete/${lectures.id}" />">Delete</a>]
+                    </security:authorize>
                     <br />
                 </c:forEach>
             </c:otherwise>
