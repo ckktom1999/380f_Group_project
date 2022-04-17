@@ -5,6 +5,7 @@ import hkmu.comps380f.dao.Lecture_Notes_AttachmentRepository;
 import hkmu.comps380f.dao.LecturesRepository;
 import hkmu.comps380f.dao.Tutorial_Notes_AttachmentRepository;
 import hkmu.comps380f.exception.AttachmentNotFound;
+import hkmu.comps380f.exception.CommentNotFound;
 import hkmu.comps380f.exception.LecturesNotFound;
 import hkmu.comps380f.model.Lecture_Comments;
 import hkmu.comps380f.model.Lecture_Notes_Attachment;
@@ -49,6 +50,20 @@ public class LecturesService {
             throw new LecturesNotFound();
         }
         lecturesRepo.delete(deletedLecture);
+    }
+
+    @Transactional(rollbackFor = CommentNotFound.class)
+    public void delete_comment(long lecturesId, long commentId) throws CommentNotFound {
+        Lectures lectures = lecturesRepo.findById(lecturesId).orElse(null);
+        for (Lecture_Comments comment : lectures.getLecture_comments()) {
+            long comment_id = comment.getId();
+            if (comment_id == commentId) {
+                lectures.delete_lecture_Comments(comment);
+                lecturesRepo.save(lectures);
+                return;
+            }
+        }
+        throw new CommentNotFound();
     }
 
     @Transactional(rollbackFor = AttachmentNotFound.class)
@@ -114,6 +129,42 @@ public class LecturesService {
         Lectures savedLectures = lecturesRepo.save(lectures);
         commentRepo.save(comment);
         return savedLectures.getId();
+    }
+
+    @Transactional(rollbackFor = LecturesNotFound.class)
+    public void updateLecture(long id, String title,
+            List<MultipartFile> lecture_attachments, List<MultipartFile> tutorial_attachments)
+            throws IOException, LecturesNotFound {
+        Lectures updatedLecture = lecturesRepo.findById(id).orElse(null);
+        if (updatedLecture == null) {
+            throw new LecturesNotFound();
+        }
+        updatedLecture.setTitle(title);
+        for (MultipartFile filePart : lecture_attachments) {
+            Lecture_Notes_Attachment attachment = new Lecture_Notes_Attachment();
+            attachment.setName(filePart.getOriginalFilename());
+            attachment.setMimeContentType(filePart.getContentType());
+            attachment.setContents(filePart.getBytes());
+            attachment.setLectures(updatedLecture);
+            if (attachment.getName() != null && attachment.getName().length() > 0
+                    && attachment.getContents() != null
+                    && attachment.getContents().length > 0) {
+                updatedLecture.getLecture_notes_attachments().add(attachment);
+            }
+        }
+        for (MultipartFile filePart : tutorial_attachments) {
+            Tutorial_Notes_Attachment attachment = new Tutorial_Notes_Attachment();
+            attachment.setName(filePart.getOriginalFilename());
+            attachment.setMimeContentType(filePart.getContentType());
+            attachment.setContents(filePart.getBytes());
+            attachment.setLectures(updatedLecture);
+            if (attachment.getName() != null && attachment.getName().length() > 0
+                    && attachment.getContents() != null
+                    && attachment.getContents().length > 0) {
+                updatedLecture.getTutorial_notes_attachments().add(attachment);
+            }
+        }
+        lecturesRepo.save(updatedLecture);
     }
 
     @Transactional

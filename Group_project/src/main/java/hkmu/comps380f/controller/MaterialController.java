@@ -1,5 +1,7 @@
 package hkmu.comps380f.controller;
 
+import hkmu.comps380f.exception.AttachmentNotFound;
+import hkmu.comps380f.exception.CommentNotFound;
 import hkmu.comps380f.exception.LecturesNotFound;
 import hkmu.comps380f.model.Lecture_Notes_Attachment;
 import hkmu.comps380f.model.Lectures;
@@ -141,5 +143,64 @@ public class MaterialController {
             throws LecturesNotFound {
         lecturesService.delete(lectureid);
         return "redirect:/home/list";
+    }
+
+    @GetMapping("/{lectureid}/delete_lecture_note/{attachment:.+}/{page:.+}")
+    public String deleteLectureNote(@PathVariable("lectureid") long lectureid,
+            @PathVariable("attachment") String name, @PathVariable("page") String page) throws AttachmentNotFound {
+        lecturesService.deleteLecture_Notes_Attachment(lectureid, name);
+        if (page.equals("view")) {
+            return "redirect:/material/view/" + lectureid;
+        } else {
+            return "redirect:/material/edit/" + lectureid;
+        }
+    }
+
+    @GetMapping("/{lectureid}/delete_tutorial_note/{attachment:.+}/{page:.+}")
+    public String deleteTutorialNote(@PathVariable("lectureid") long lectureid,
+            @PathVariable("attachment") String name, @PathVariable("page") String page) throws AttachmentNotFound {
+        lecturesService.deleteTutorial_Notes_Attachment(lectureid, name);
+        if (page.equals("view")) {
+            return "redirect:/material/view/" + lectureid;
+        } else {
+            return "redirect:/material/edit/" + lectureid;
+        }
+    }
+
+    @GetMapping("/{lectureid}/deletecomment/{commentid}")
+    public String deletecomment(@PathVariable("lectureid") long lectureid,
+            @PathVariable("commentid") long commentid) throws CommentNotFound {
+        lecturesService.delete_comment(lectureid, commentid);
+        return "redirect:/material/view/" + lectureid;
+    }
+
+    @GetMapping("/edit/{lectureid}")
+    public ModelAndView showEdit(@PathVariable("lectureid") long lectureid,
+            Principal principal, HttpServletRequest request) {
+        Lectures lecture = lecturesService.getLectures(lectureid);
+        if (lecture == null
+                || (!request.isUserInRole("ROLE_ADMIN"))) {
+            return new ModelAndView(new RedirectView("/home/list", true));
+        }
+        ModelAndView modelAndView = new ModelAndView("edit_material");
+        modelAndView.addObject("lecture", lecture);
+        Form lectureForm = new Form();
+        lectureForm.setTitle(lecture.getTitle());
+        modelAndView.addObject("lectureForm", lectureForm);
+        return modelAndView;
+    }
+
+    @PostMapping("/edit/{lectureid}")
+    public String edit(@PathVariable("lectureid") long lectureid, Form form,
+            Principal principal, HttpServletRequest request)
+            throws IOException, LecturesNotFound {
+        Lectures lecture = lecturesService.getLectures(lectureid);
+        if (lecture == null
+                || (!request.isUserInRole("ROLE_ADMIN"))) {
+            return "redirect:/home/list";
+        }
+        lecturesService.updateLecture(lectureid, form.getTitle(),
+                form.getLecture_notes_attachments(), form.getTutorial_notes_attachments());
+        return "redirect:/material/view/" + lectureid;
     }
 }
