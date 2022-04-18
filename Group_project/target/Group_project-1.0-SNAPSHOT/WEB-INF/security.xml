@@ -26,9 +26,14 @@
     </b:bean>
 
     <http>
+        <intercept-url pattern= "/material/**/delete_lecture_note/**" access="hasAnyRole('ADMIN')" />
+        <intercept-url pattern= "/material/**/delete_tutorial_note/**" access="hasAnyRole('ADMIN')" />
+        <intercept-url pattern= "/material/**/deletecomment/**" access="hasAnyRole('ADMIN')" />
+        <intercept-url pattern= "/material/delete/**" access="hasAnyRole('ADMIN')" />
+        <intercept-url pattern= "/material/edit/**" access="hasAnyRole('ADMIN')" />
+        <intercept-url pattern= "/material/create/**" access="hasAnyRole('ADMIN')" />
         <intercept-url pattern= "/user/**" access="hasAnyRole('ADMIN')" />
         <intercept-url pattern= "/material/**" access="hasAnyRole('USER','ADMIN')" />
-        <intercept-url pattern="/ticket/**" access="hasAnyRole('USER','ADMIN')" />
         
         <form-login login-page="/cslogin" login-processing-url="/cslogin"
                     authentication-failure-url="/cslogin?error" />
