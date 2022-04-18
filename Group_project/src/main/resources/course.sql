@@ -15,6 +15,8 @@ CREATE TABLE user_roles (
     FOREIGN KEY (username) REFERENCES users(username)
 );
 
+Update users Set username ='Test123' Where username = 'Test3'
+
 INSERT INTO users VALUES ('Tom', '{noop}Tompw', 'Chan Kin Kong', 56178406, 'Wan Chai Central Plaza 245');
 INSERT INTO user_roles(username, role) VALUES ('Tom', 'ROLE_USER');
 INSERT INTO user_roles(username, role) VALUES ('Tom', 'ROLE_ADMIN');
@@ -32,10 +34,7 @@ CREATE TABLE lectures (
 );
 
 INSERT INTO lectures (title) VALUES ('Lecture 1');
-INSERT INTO lectures (title) VALUES ('Lecture 2');
-INSERT INTO lectures (title) VALUES ('Lecture 3');
-INSERT INTO lectures (title) VALUES ('Lecture 4');
-INSERT INTO lectures (title) VALUES ('Lecture 5');
+
 
 CREATE TABLE lecture_notes_attachment (
     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),

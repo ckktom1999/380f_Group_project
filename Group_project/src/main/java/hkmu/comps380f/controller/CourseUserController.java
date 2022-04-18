@@ -1,9 +1,15 @@
 package hkmu.comps380f.controller;
 
 import hkmu.comps380f.dao.CourseUserRepository;
+import hkmu.comps380f.exception.CourseUserNotFound;
 import hkmu.comps380f.model.CourseUser;
+import hkmu.comps380f.model.UserRole;
+import hkmu.comps380f.service.CourseUserService;
 import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +27,9 @@ public class CourseUserController {
     @Resource
     CourseUserRepository couserUserRepo;
 
+    @Resource
+    CourseUserService courseUserService;
+
     @GetMapping({"", "/list"})
     public String list(ModelMap model) {
         model.addAttribute("couserUsers", couserUserRepo.findAll());
@@ -35,6 +44,8 @@ public class CourseUserController {
         private int phone_number;
         private String address;
         private String[] roles;
+        private String original_username;
+        private List<UserRole> user_roles;
 
         // ... getters and setters for each of the properties
         public String getUsername() {
@@ -84,6 +95,22 @@ public class CourseUserController {
         public void setRoles(String[] roles) {
             this.roles = roles;
         }
+
+        public String getOriginal_username() {
+            return original_username;
+        }
+
+        public void setOriginal_username(String original_username) {
+            this.original_username = original_username;
+        }
+
+        public List<UserRole> getUser_roles() {
+            return user_roles;
+        }
+
+        public void setUser_roles(List<UserRole> user_roles) {
+            this.user_roles = user_roles;
+        }
     }
 
     @GetMapping("/create")
@@ -105,4 +132,41 @@ public class CourseUserController {
         return new RedirectView("/user/list", true);
     }
 
+    @GetMapping("/edit/{username}")
+    public ModelAndView showEdit(@PathVariable("username") String username,
+            Principal principal, HttpServletRequest request) {
+        CourseUser user = courseUserService.getUser(username);
+        if (user == null
+                || (!request.isUserInRole("ROLE_ADMIN"))) {
+            return new ModelAndView(new RedirectView("/home/list", true));
+        }
+        ModelAndView modelAndView = new ModelAndView("edit_user");
+        modelAndView.addObject("user", user);
+        Form userForm = new Form();
+        userForm.setUsername(user.getUsername());
+        String pw = user.getPassword();
+        pw = pw.replace("{noop}", "");
+        userForm.setPassword(pw);
+        userForm.setFull_name(user.getFull_name());
+        userForm.setPhone_number(user.getPhone_number());
+        userForm.setAddress(user.getAddress());
+        userForm.setUser_roles(user.getRoles());
+        userForm.setOriginal_username(user.getUsername());
+        modelAndView.addObject("userForm", userForm);
+        return modelAndView;
+    }
+
+    @PostMapping("/edit/{username}")
+    public String edit(@PathVariable("username") String username, Form form,
+            Principal principal, HttpServletRequest request)
+            throws IOException, CourseUserNotFound {
+        CourseUser user = courseUserService.getUser(username);
+        if (user == null
+                || (!request.isUserInRole("ROLE_ADMIN"))) {
+            return "redirect:/home/list";
+        }
+        courseUserService.updateUser(form.getOriginal_username(), form.getUsername(),
+                form.getPassword(), form.getFull_name(), form.getPhone_number(), form.getAddress());
+        return "redirect:/user";
+    }
 }
