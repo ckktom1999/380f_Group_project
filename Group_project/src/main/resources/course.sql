@@ -1,6 +1,9 @@
 CREATE TABLE users (
     username VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
+    full_name VARCHAR(50) NOT NULL,
+    phone_number INT NOT NULL,
+    address VARCHAR(200) NOT NULL,
     PRIMARY KEY (username)
 );
 
@@ -12,14 +15,14 @@ CREATE TABLE user_roles (
     FOREIGN KEY (username) REFERENCES users(username)
 );
 
-INSERT INTO users VALUES ('Tom', '{noop}Tompw');
+INSERT INTO users VALUES ('Tom', '{noop}Tompw', 'Chan Kin Kong', 56178406, 'Wan Chai Central Plaza 245');
 INSERT INTO user_roles(username, role) VALUES ('Tom', 'ROLE_USER');
 INSERT INTO user_roles(username, role) VALUES ('Tom', 'ROLE_ADMIN');
 
-INSERT INTO users VALUES ('john', '{noop}johnpw');
+INSERT INTO users VALUES ('john', '{noop}johnpw', 'Wong tai ming', 54710456, 'Central And Western District Bank Of America Tower 1234');
 INSERT INTO user_roles(username, role) VALUES ('john', 'ROLE_ADMIN');
 
-INSERT INTO users VALUES ('mary', '{noop}marypw');
+INSERT INTO users VALUES ('mary', '{noop}marypw', 'Wong xiao', 84410454, 'North District Unit I3/F Good Harvest Ctr33 Onchuen St Fanling');
 INSERT INTO user_roles(username, role) VALUES ('mary', 'ROLE_USER');
 
 CREATE TABLE lectures (
