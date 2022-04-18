@@ -26,6 +26,7 @@
     </b:bean>
 
     <http>
+        <intercept-url pattern= "/user/**" access="hasAnyRole('ADMIN')" />
         <intercept-url pattern= "/material/**" access="hasAnyRole('USER','ADMIN')" />
         <intercept-url pattern="/ticket/**" access="hasAnyRole('USER','ADMIN')" />
         

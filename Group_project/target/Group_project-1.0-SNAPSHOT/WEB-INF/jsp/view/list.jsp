@@ -5,6 +5,25 @@
     </head>
     <body>
         <h2> COMP S380F Web Applications </h2>
+        <c:choose>
+            <c:when test="${empty principal.name}">
+                <c:url var="loginUrl" value="/cslogin"/>
+                <form action="${loginUrl}" method="get">
+                    <input type="submit" value="Login" />
+                </form>
+                <c:url var="registerUrl" value="/home/register"/>
+                <form action="${registerUrl}" method="get">
+                    <input type="submit" value="Register" />
+                </form>
+            </c:when>
+            <c:otherwise>
+                <c:url var="logoutUrl" value="/cslogout"/>
+                <form action="${logoutUrl}" method="post">
+                    <input type="submit" value="Log out" />
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+            </c:otherwise>
+        </c:choose>
         <h3>Lectures:</h3>
         <security:authorize access="hasRole('ADMIN')">
             <a href="<c:url value="/user" />">Manage User Accounts</a><br /><br />

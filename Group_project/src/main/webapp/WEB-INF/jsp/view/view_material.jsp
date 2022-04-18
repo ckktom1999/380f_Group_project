@@ -15,9 +15,8 @@
             [<a href="<c:url value="/material/edit/${lecture.id}" />">Edit</a>]
         </security:authorize>
         <security:authorize access="hasRole('ADMIN')">
-            [<a href="<c:url value="/material/delete/${lecture.id}" />">Delete</a>]
+            [<a href="<c:url value="/material/delete/${lecture.id}" />">Delete</a>]<br />
         </security:authorize>
-        <br />
         <h3>Lecture Note:</h3>
         <c:if test="${fn:length(lecture.lecture_notes_attachments) > 0}">
             <c:forEach items="${lecture.lecture_notes_attachments}" var="attachment" varStatus="status">
