@@ -7,6 +7,7 @@ import hkmu.comps380f.model.UserRole;
 import hkmu.comps380f.service.CourseUserService;
 import java.io.IOException;
 import java.security.Principal;
+import static java.util.Collections.list;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -150,7 +151,6 @@ public class CourseUserController {
         userForm.setFull_name(user.getFull_name());
         userForm.setPhone_number(user.getPhone_number());
         userForm.setAddress(user.getAddress());
-        userForm.setUser_roles(user.getRoles());
         userForm.setOriginal_username(user.getUsername());
         modelAndView.addObject("userForm", userForm);
         return modelAndView;

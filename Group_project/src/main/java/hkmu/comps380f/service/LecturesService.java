@@ -103,6 +103,9 @@ public class LecturesService {
         Lecture_Comments comment = new Lecture_Comments();
         comment.setUserName(name);
         comment.setBody(body);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String date_time = timestamp.toString();
+        comment.setDate_time(date_time);
         comment.setLectures(lectures);
         for (MultipartFile filePart : lecture_attachments) {
             Lecture_Notes_Attachment attachment = new Lecture_Notes_Attachment();
