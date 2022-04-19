@@ -18,6 +18,7 @@ public class Lecture_Comments implements Serializable {
     @Column(name = "name")
     private String userName;
     private String body;
+    private String date_time;
     @Column(name = "lectures_id", insertable = false, updatable = false)
     private long lecturesId;
     @ManyToOne
@@ -47,6 +48,14 @@ public class Lecture_Comments implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getDate_time() {
+        return date_time.substring(0, 19);
+    }
+
+    public void setDate_time(String date_time) {
+        this.date_time = date_time;
     }
 
     public Lectures getLectures() {

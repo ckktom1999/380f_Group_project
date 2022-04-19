@@ -2,6 +2,7 @@ package hkmu.comps380f.controller;
 
 import hkmu.comps380f.dao.CourseUserRepository;
 import hkmu.comps380f.model.CourseUser;
+import hkmu.comps380f.service.CommentsService;
 import hkmu.comps380f.service.LecturesService;
 import java.io.IOException;
 import java.security.Principal;
@@ -22,6 +23,9 @@ public class HomeController {
 
     @Autowired
     private LecturesService lecturesService;
+
+    @Autowired
+    private CommentsService commentsService;
 
     @Resource
     CourseUserRepository couserUserRepo;
@@ -96,4 +100,9 @@ public class HomeController {
         return new RedirectView("/home/list", true);
     }
 
+    @GetMapping("/comment/history")
+    public String comment_history(ModelMap model, Principal principal) {
+        model.addAttribute("commentdb", commentsService.getcomments());
+        return "list_comment";
+    }
 }

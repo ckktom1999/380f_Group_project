@@ -60,7 +60,10 @@ CREATE TABLE lecture_comments (
     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     name VARCHAR(255) NOT NULL,
     body VARCHAR(255) NOT NULL,
+    date_time TIMESTAMP NOT NULL,
     lectures_id INTEGER DEFAULT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (lectures_id) REFERENCES lectures(lectures_id)
 );
+
+INSERT INTO lecture_comments (name, body, date_time, lectures_id) VALUES ('mary', 'Hello2', '2011-03-17 15:52:25', 2);

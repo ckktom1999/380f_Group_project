@@ -49,5 +49,9 @@
                 </c:forEach>
             </c:otherwise>
         </c:choose>
+        <security:authorize access="hasRole('ADMIN')">
+            <br /><br />
+            <a href="<c:url value="/home/comment/history" />">Comment History</a><br /><br />
+        </security:authorize>
     </body>
 </html>

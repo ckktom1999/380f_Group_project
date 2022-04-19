@@ -12,6 +12,9 @@ import hkmu.comps380f.model.Lecture_Notes_Attachment;
 import hkmu.comps380f.model.Lectures;
 import hkmu.comps380f.model.Tutorial_Notes_Attachment;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -172,6 +175,9 @@ public class LecturesService {
         Lecture_Comments comment = new Lecture_Comments();
         comment.setUserName(name);
         comment.setBody(body);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String date_time = timestamp.toString();
+        comment.setDate_time(date_time);
         comment.setLectures(lectures);
         commentRepo.save(comment);
     }

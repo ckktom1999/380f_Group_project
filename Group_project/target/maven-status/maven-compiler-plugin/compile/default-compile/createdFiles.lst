@@ -1,6 +1,7 @@
 hkmu\comps380f\dao\Lecture_CommentsRepository.class
 hkmu\comps380f\service\LecturesService.class
 hkmu\comps380f\exception\CommentNotFound.class
+hkmu\comps380f\controller\HomeController$Form.class
 hkmu\comps380f\model\Lectures.class
 hkmu\comps380f\view\DownloadingView.class
 hkmu\comps380f\controller\HomeController.class
@@ -14,6 +15,7 @@ hkmu\comps380f\dao\Tutorial_Notes_AttachmentRepository.class
 hkmu\comps380f\service\CourseUserService.class
 hkmu\comps380f\controller\CourseUserController.class
 hkmu\comps380f\exception\AttachmentNotFound.class
+hkmu\comps380f\exception\CourseUserNotFound.class
 hkmu\comps380f\controller\MaterialController$Form.class
 hkmu\comps380f\dao\UserRoleRepository.class
 hkmu\comps380f\controller\MaterialController.class
