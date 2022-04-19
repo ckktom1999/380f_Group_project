@@ -7,8 +7,7 @@
             <input type="submit" value="Log out" />
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <br /><br />
-        <a href="<c:url value="/home/list" />">Return to home page</a>
+        <br />
         <h2>Users</h2>
         <a href="<c:url value="/user/create" />">Create a User</a><br /><br />
         <c:choose>
@@ -38,4 +37,6 @@
                 </table>
             </c:otherwise>
         </c:choose>
+        <br />
+        <a href="<c:url value="/home/list" />">Return to home page</a>
     </body>

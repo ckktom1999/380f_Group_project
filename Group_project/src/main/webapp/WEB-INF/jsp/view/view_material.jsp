@@ -62,7 +62,7 @@
     <form:form method="POST" enctype="multipart/form-data"
                modelAttribute="commentForm">
         <form:label path="comment">Comment</form:label><br />
-        <form:textarea path="comment" rows="5" cols="30" /><br /><br />
+        <form:textarea path="comment" rows="5" cols="30" required="required"/><br /><br />
         <input type="submit" value="Add comment"/>
     </form:form>
     <br />

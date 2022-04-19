@@ -24,10 +24,10 @@
                 </form>
             </c:otherwise>
         </c:choose>
-        <h3>Lectures:</h3>
         <security:authorize access="hasRole('ADMIN')">
-            <a href="<c:url value="/user" />">Manage User Accounts</a><br /><br />
+            <br /><a href="<c:url value="/user" />">Manage User Accounts</a><br />
         </security:authorize>
+        <h3>Lectures:</h3>
         <security:authorize access="hasRole('ADMIN')">
             <a href="<c:url value="/material/create" />">Create Lecture</a><br /><br />
         </security:authorize>
