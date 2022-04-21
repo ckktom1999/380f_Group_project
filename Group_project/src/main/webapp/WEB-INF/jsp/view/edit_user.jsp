@@ -32,6 +32,8 @@
                     ${admin_check = "checked" ; ""}
                 </c:if>
             </c:forEach>
+            <form:checkbox path="roles" value="ROLE_USER" checked="${user_check}" />ROLE_USER
+            <form:checkbox path="roles" value="ROLE_ADMIN" checked="${admin_check}"/>ROLE_ADMIN
             <br />
             <input type="submit" value="Update"/>
         </form:form>

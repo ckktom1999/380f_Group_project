@@ -1,6 +1,7 @@
 package hkmu.comps380f.controller;
 
 import hkmu.comps380f.dao.CourseUserRepository;
+import hkmu.comps380f.dao.PollQuestionRepository;
 import hkmu.comps380f.model.CourseUser;
 import hkmu.comps380f.service.CommentsService;
 import hkmu.comps380f.service.LecturesService;
@@ -30,9 +31,13 @@ public class HomeController {
     @Resource
     CourseUserRepository couserUserRepo;
 
+    @Resource
+    PollQuestionRepository PollQuesRepo;
+
     @GetMapping({"list"})
     public String list(ModelMap model, Principal principal) {
         model.addAttribute("lecturesDatabase", lecturesService.getLectures());
+        model.addAttribute("PollQues", PollQuesRepo.findAll());
         model.addAttribute("principal", principal);
         return "list";
     }

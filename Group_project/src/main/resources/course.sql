@@ -72,3 +72,30 @@ INSERT INTO lecture_comments (name, body, date_time, lectures_id) VALUES ('Tom',
 INSERT INTO lecture_comments (name, body, date_time, lectures_id) VALUES ('Tom', 'This week Lecture will show how to use Servlet!', '2022-04-18 13:24:20', 2);
 INSERT INTO lecture_comments (name, body, date_time, lectures_id) VALUES ('mary', 'Sir, you forgot to upload the lab answer!', '2022-04-18 14:02:30', 2);
 INSERT INTO lecture_comments (name, body, date_time, lectures_id) VALUES ('Tom', 'Thank you for your reminder! I will upload the answer soon.', '2022-04-18 14:30:10', 2);
+
+CREATE TABLE pollQuestion (
+    pollId INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    question VARCHAR(255) NOT NULL,
+    optionA VARCHAR(255),
+    optionB VARCHAR(255),
+    optionC VARCHAR(255),
+    optionD VARCHAR(255),
+    username VARCHAR(255) NOT NULL,
+    pqDate TIMESTAMP,
+    PRIMARY KEY (pollId)
+);
+
+CREATE TABLE pollAnswer (
+    id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    username VARCHAR(255) NOT NULL,
+    answer VARCHAR(1) NOT NULL,
+    pollId INTEGER NOT NULL,
+    paDate TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (pollId) REFERENCES pollQuestion(pollId)
+);
+
+
+INSERT INTO pollQuestion(question,optionA,optionB,optionC,optionD,username,pqDate) VALUES ('Which date do you prefer for exam?', '1/11','2/11','3/11','4/11','Tom', '2022-01-19 03:14:07');
+INSERT INTO pollQuestion(question,optionA,optionB,optionC,optionD,username,pqDate) VALUES ('Which date do you prefer for exam?', '1/12','2/12','3/12','4/12','Mary', '2022-01-20 07:24:08');
+

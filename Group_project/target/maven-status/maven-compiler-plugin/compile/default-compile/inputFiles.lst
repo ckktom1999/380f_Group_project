@@ -1,3 +1,4 @@
+C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\dao\PollAnswerRepository.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\model\Lecture_Comments.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\service\Tutorial_Notes_AttachmentService.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\exception\LecturesNotFound.java
@@ -11,16 +12,21 @@ C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_proj
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\dao\LecturesRepository.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\service\Lecture_Notes_AttachmentService.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\dao\CourseUserRepository.java
+C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\dao\PollQuestionRepository.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\exception\AttachmentNotFound.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\controller\HomeController.java
+C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\model\PollQuestion.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\dao\Tutorial_Notes_AttachmentRepository.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\model\Lectures.java
+C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\controller\PollController.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\service\CourseUserService.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\service\CommentsService.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\dao\Lecture_CommentsRepository.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\dao\UserRoleRepository.java
+C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\service\PollService.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\model\Tutorial_Notes_Attachment.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\model\Lecture_Notes_Attachment.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\service\LecturesService.java
+C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\model\PollAnswer.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\dao\Lecture_Notes_AttachmentRepository.java
 C:\Users\ckktom1999\OneDrive\文件\NetBeansProjects\380f_Group_project\Group_project\src\main\java\hkmu\comps380f\model\UserRole.java
