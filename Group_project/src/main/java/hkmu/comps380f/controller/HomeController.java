@@ -1,6 +1,7 @@
 package hkmu.comps380f.controller;
 
 import hkmu.comps380f.dao.CourseUserRepository;
+import hkmu.comps380f.dao.Lecture_CommentsRepository;
 import hkmu.comps380f.dao.PollQuestionRepository;
 import hkmu.comps380f.model.CourseUser;
 import hkmu.comps380f.service.CommentsService;
@@ -8,6 +9,7 @@ import hkmu.comps380f.service.LecturesService;
 import java.io.IOException;
 import java.security.Principal;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,9 @@ public class HomeController {
 
     @Resource
     PollQuestionRepository PollQuesRepo;
+
+    @Resource
+    Lecture_CommentsRepository lecture_CommentsRepository;
 
     @GetMapping({"list"})
     public String list(ModelMap model, Principal principal) {
@@ -106,8 +111,12 @@ public class HomeController {
     }
 
     @GetMapping("/comment/history")
-    public String comment_history(ModelMap model, Principal principal) {
-        model.addAttribute("commentdb", commentsService.getcomments());
+    public String comment_history(ModelMap model, Principal principal, HttpServletRequest request) {
+        if ((request.isUserInRole("ROLE_ADMIN"))) {
+            model.addAttribute("commentdb", commentsService.getcomments());
+        }
+        model.addAttribute("personal_comment", lecture_CommentsRepository.readLecture_CommentsByUserName(principal.getName()));
+        model.addAttribute("principal", principal);
         return "list_comment";
     }
 }

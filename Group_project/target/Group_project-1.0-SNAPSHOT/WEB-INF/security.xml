@@ -26,7 +26,6 @@
     </b:bean>
 
     <http>
-        <intercept-url pattern= "/home/comment/**" access="hasAnyRole('ADMIN')" />
         <intercept-url pattern= "/material/**/delete_lecture_note/**" access="hasAnyRole('ADMIN')" />
         <intercept-url pattern= "/material/**/delete_tutorial_note/**" access="hasAnyRole('ADMIN')" />
         <intercept-url pattern= "/material/**/deletecomment/**" access="hasAnyRole('ADMIN')" />
@@ -34,13 +33,14 @@
         <intercept-url pattern= "/material/edit/**" access="hasAnyRole('ADMIN')" />
         <intercept-url pattern= "/material/create/**" access="hasAnyRole('ADMIN')" />
         <intercept-url pattern= "/user/**" access="hasAnyRole('ADMIN')" />
+        <intercept-url pattern= "/home/comment/**" access="hasAnyRole('USER','ADMIN')" />
         <intercept-url pattern= "/material/**" access="hasAnyRole('USER','ADMIN')" />
         
         <form-login login-page="/cslogin" login-processing-url="/cslogin"
                     authentication-failure-url="/cslogin?error" />
         <logout logout-url="/cslogout" logout-success-url="/cslogin?logout"
                 invalidate-session="true" delete-cookies="JSESSIONID" />
-        <remember-me key="custSupportSecret" token-validity-seconds="86400" />
+        <remember-me key="courseSupportSecret" token-validity-seconds="86400" />
     </http>
     
    <context:annotation-config />

@@ -49,10 +49,8 @@
                 </c:forEach>
             </c:otherwise>
         </c:choose>
-        <security:authorize access="hasRole('ADMIN')">
-            <br /><br />
-            <a href="<c:url value="/home/comment/history" />">Comment History</a><br /><br />
-        </security:authorize>
+        <br /><br />
+        <a href="<c:url value="/home/comment/history" />">Comment History</a><br /><br />
         <h2>Poll Question:</h2>
         <c:choose>
             <c:when test="${fn:length(PollQues) == 0}">
@@ -61,7 +59,7 @@
             <c:otherwise>
                 <table style="white-space:nowrap;width:70%;">
                     <tr align="left"> 
-                        <th>QID</th><th>Question</th> <th>Author</th><th>Action</th>
+                        <th>QID</th><th>Question</th><th>Author</th><th>Action</th>
                     </tr>
                     <tr> 
                         <c:forEach items="${PollQues}" var="pollQ">
