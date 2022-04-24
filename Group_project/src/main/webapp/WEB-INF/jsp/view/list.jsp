@@ -52,6 +52,9 @@
         <br /><br />
         <a href="<c:url value="/home/comment/history" />">Comment History</a><br /><br />
         <h2>Poll Question:</h2>
+        <security:authorize access="hasRole('ADMIN')">
+            <a href="<c:url value="/poll/create" />">Create Poll Question</a><br />
+        </security:authorize>
         <c:choose>
             <c:when test="${fn:length(PollQues) == 0}">
                 <i>There are no poll question.</i>
@@ -66,12 +69,17 @@
                             <td>${pollQ.pollId}</td>
                             <td>${pollQ.question}</td>
                             <td>${pollQ.username}</td>
-                            <td> [<a href="<c:url value="/poll/view/${pollQ.pollId}" />">View</a>]</td>
-                        <br />
-                    </tr>
-                </c:forEach>
-            </table>
-        </c:otherwise>
-    </c:choose>
+                            <td> [<a href="<c:url value="/poll/view/${pollQ.pollId}" />">View</a>]
+                            <security:authorize access="hasRole('ADMIN')">
+                                [<a href="<c:url value="/poll/delete/${pollQ.pollId}" />">Delete</a>]<br />
+                        </security:authorize></td>
+                    <br />
+                </tr>
+            </c:forEach>
+        </table>
+    </c:otherwise>
+</c:choose>
+<br />
+<a href="<c:url value="/home/poll_comment/history" />">Poll Comment History</a>
 </body>
 </html>

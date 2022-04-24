@@ -25,6 +25,23 @@ public interface PollAnswerRepository extends JpaRepository<PollAnswer, Long> {
     @Query("select pa.answer from PollAnswer pa where pa.pollId = ?1 AND pa.username= ?2")
     String findAnswerByPollIdAndUsername(long pollId, String username);
 
+    @Transactional
+    @Query("select count(*) from PollAnswer pa where pa.pollId = ?1 AND pa.answer= 'A'")
+    long countOptionAdByPollId(long pollId);
+
+    @Transactional
+    @Query("select count(*) from PollAnswer pa where pa.pollId = ?1 AND pa.answer= 'B'")
+    long countOptionBdByPollId(long pollId);
+
+    @Transactional
+    @Query("select count(*) from PollAnswer pa where pa.pollId = ?1 AND pa.answer= 'C'")
+    long countOptionCdByPollId(long pollId);
+
+    @Transactional
+    @Query("select count(*) from PollAnswer pa where pa.pollId = ?1 AND pa.answer= 'D'")
+    long countOptionDdByPollId(long pollId);
+
+
 //    @Transactional
 //    @Query("select count(pa.*) from PollAnswer pa where pa.pollId = ?1")
 //    long countAnswer(long pollId);

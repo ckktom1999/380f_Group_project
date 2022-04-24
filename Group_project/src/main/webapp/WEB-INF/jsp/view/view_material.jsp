@@ -45,6 +45,8 @@
         <c:if test="${fn:length(lecture.tutorial_notes_attachments) == 0}">
             No Tutorial note!
         </c:if>
+            
+            
         <h3>Comment:</h3>
         <c:if test="${fn:length(lecture.lecture_comments) > 0}">
             <c:forEach items="${lecture.lecture_comments}" var="comment">

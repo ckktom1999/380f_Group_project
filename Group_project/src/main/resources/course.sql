@@ -96,6 +96,21 @@ CREATE TABLE pollAnswer (
 );
 
 
-INSERT INTO pollQuestion(question,optionA,optionB,optionC,optionD,username,pqDate) VALUES ('Which date do you prefer for exam?', '1/11','2/11','3/11','4/11','Tom', '2022-01-19 03:14:07');
-INSERT INTO pollQuestion(question,optionA,optionB,optionC,optionD,username,pqDate) VALUES ('Which date do you prefer for exam?', '1/12','2/12','3/12','4/12','Mary', '2022-01-20 07:24:08');
+CREATE TABLE pollComments (
+    id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    name VARCHAR(255) NOT NULL,
+    body VARCHAR(255) NOT NULL,
+    pcDate TIMESTAMP NOT NULL,
+    pollId INTEGER NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (pollId) REFERENCES pollQuestion(pollId)
+);
 
+INSERT INTO pollQuestion(question,optionA,optionB,optionC,optionD,username,pqDate) VALUES ('Which date do you prefer for exam?', '1/11','2/11','3/11','4/11','Tom', '2022-01-19 03:14:07');
+INSERT INTO pollQuestion(question,optionA,optionB,optionC,optionD,username,pqDate) VALUES ('Which date do you prefer for exam?', '1/12','2/12','3/12','4/12','john', '2022-01-20 07:24:08');
+
+INSERT INTO pollAnswer(username, answer, pollId, paDate) VALUES ('Tom','A', 1,'2022-01-20 07:24:08');
+INSERT INTO pollAnswer(username, answer, pollId, paDate) VALUES ('mary','D', 1,'2022-01-20 07:24:08');
+
+INSERT INTO pollComments(name, body, pcDate, pollId) VALUES ('Tom','MyFirstComment','2022-01-20 07:24:08', 1);
+INSERT INTO pollComments(name, body, pcDate, pollId) VALUES ('mary','MySComment','2022-01-20 07:24:08', 1);

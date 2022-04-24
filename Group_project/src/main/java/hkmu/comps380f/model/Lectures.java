@@ -26,10 +26,12 @@ public class Lectures implements Serializable {
             cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
     private List<Lecture_Notes_Attachment> lecture_notes_attachments = new ArrayList<>();
+
     @OneToMany(mappedBy = "lectures", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
     private List<Tutorial_Notes_Attachment> tutorial_notes_attachments = new ArrayList<>();
+
     @OneToMany(mappedBy = "lectures", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lecture_Comments> lecture_comments = new ArrayList<>();

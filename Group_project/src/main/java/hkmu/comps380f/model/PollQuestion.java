@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class PollQuestion implements Serializable {
@@ -40,6 +42,11 @@ public class PollQuestion implements Serializable {
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PollAnswer> answer = new ArrayList<>();
 
+    @OneToMany(mappedBy = "pQuestion", fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
+    private List<PollComments> pComment = new ArrayList<>();
+
     public PollQuestion() {
     }
 
@@ -47,7 +54,7 @@ public class PollQuestion implements Serializable {
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
-        this.optionC = optionD;
+        this.optionC = optionC;
         this.optionD = optionD;
         this.username = username;
         this.pqDate = pqDate;
@@ -123,6 +130,19 @@ public class PollQuestion implements Serializable {
 
     public void setAnswer(List<PollAnswer> answer) {
         this.answer = answer;
+    }
+
+    public List<PollComments> getpComment() {
+        return pComment;
+    }
+
+    public void setpComment(List<PollComments> pComment) {
+        this.pComment = pComment;
+    }
+
+    public void delete_pollComments(PollComments comment) {
+        comment.setpQuestion(null);
+        this.pComment.remove(comment);
     }
 
 }

@@ -2,10 +2,12 @@ package hkmu.comps380f.controller;
 
 import hkmu.comps380f.dao.CourseUserRepository;
 import hkmu.comps380f.dao.Lecture_CommentsRepository;
+import hkmu.comps380f.dao.PollCommentsRepository;
 import hkmu.comps380f.dao.PollQuestionRepository;
 import hkmu.comps380f.model.CourseUser;
 import hkmu.comps380f.service.CommentsService;
 import hkmu.comps380f.service.LecturesService;
+import hkmu.comps380f.service.PollCommentsService;
 import java.io.IOException;
 import java.security.Principal;
 import javax.annotation.Resource;
@@ -30,6 +32,9 @@ public class HomeController {
     @Autowired
     private CommentsService commentsService;
 
+    @Autowired
+    private PollCommentsService pollCommentsService;
+
     @Resource
     CourseUserRepository couserUserRepo;
 
@@ -38,6 +43,9 @@ public class HomeController {
 
     @Resource
     Lecture_CommentsRepository lecture_CommentsRepository;
+
+    @Resource
+    PollCommentsRepository pollCommentsRepository;
 
     @GetMapping({"list"})
     public String list(ModelMap model, Principal principal) {
@@ -111,12 +119,22 @@ public class HomeController {
     }
 
     @GetMapping("/comment/history")
-    public String comment_history(ModelMap model, Principal principal, HttpServletRequest request) {
+    public String comment_material_history(ModelMap model, Principal principal, HttpServletRequest request) {
         if ((request.isUserInRole("ROLE_ADMIN"))) {
             model.addAttribute("commentdb", commentsService.getcomments());
         }
         model.addAttribute("personal_comment", lecture_CommentsRepository.readLecture_CommentsByUserName(principal.getName()));
         model.addAttribute("principal", principal);
         return "list_comment";
+    }
+
+    @GetMapping("/poll_comment/history")
+    public String comment_poll_history(ModelMap model, Principal principal, HttpServletRequest request) {
+        if ((request.isUserInRole("ROLE_ADMIN"))) {
+            model.addAttribute("commentdb", pollCommentsService.getpoll_comments());
+        }
+        model.addAttribute("personal_comment", pollCommentsRepository.readPollCommentsByName(principal.getName()));
+        model.addAttribute("principal", principal);
+        return "list_poll_comment";
     }
 }
